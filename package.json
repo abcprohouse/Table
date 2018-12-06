@@ -1,0 +1,24 @@
+{
+  "name": "Table",
+  "version": "0.0.1",
+  "author": "Eric Ling",
+  "license": "MIT",
+  "main": "index.js",
+  "description": "Simple Table Component with state stored at redux store. Designed with Bootstrap 4 Alpha",
+  "scripts": {
+    "compile": "babel -d lib/ source/ --no-comments",
+    "build": "npm run compile"
+  },
+  "dependencies": {
+    "prop-types": "^15.6.2",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
+    "react-redux": "^6.0.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.0.0-beta.51",
+    "@babel/core": "^7.0.0",
+    "@babel/preset-env": "^7.2.0",
+    "@babel/preset-react": "^7.0.0"
+  }
+}
