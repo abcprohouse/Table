@@ -7,7 +7,8 @@
   "description": "Simple Table Component with state stored at redux store. Designed with Bootstrap 4 Alpha",
   "scripts": {
     "compile": "babel -d lib/ source/ --no-comments",
-    "build": "npm run compile"
+    "build": "npm run compile",
+    "test": "babel-node test.js "
   },
   "dependencies": {
     "prop-types": "^15.6.2",
@@ -17,8 +18,10 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0-beta.51",
-    "@babel/core": "^7.0.0",
+    "@babel/core": "^7.2.0",
+    "@babel/node": "^7.2.0",
     "@babel/preset-env": "^7.2.0",
-    "@babel/preset-react": "^7.0.0"
+    "@babel/preset-react": "^7.0.0",
+    "redux": "^4.0.1"
   }
 }
