@@ -1489,7 +1489,7 @@
             },
             value: page + 1,
             onChange: function onChange(e) {
-              return changePage$$1(+e.target.value - 1);
+              return changePage$$1(+e.target.value - 1, pages);
             }
           }), "/", pages), React.createElement("button", {
             className: "btn btn-sm",
