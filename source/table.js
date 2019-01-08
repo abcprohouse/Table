@@ -89,7 +89,7 @@ class Table extends React.Component{
                 <div>
                     <div className="my-1">
                         <button className="btn btn-sm" onClick={()=>changePage(page - 1, pages)}>previous</button>
-                        <span className="mx-2">{page+1}/{pages}</span>
+                        <span className="mx-2"><input style={{width:60}} value={page+1} onChange={(e)=>changePage(+e.target.value -1)}/>/{pages}</span>
                         <button className="btn btn-sm" onClick={()=>changePage(page + 1, pages)}>next</button>
                         <div className='float-right'>
                             <button type="submit" onClick={this.clearSearch} className="btn btn-primary">Clear</button>

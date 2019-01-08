@@ -1483,7 +1483,15 @@
             }
           }, "previous"), React.createElement("span", {
             className: "mx-2"
-          }, page + 1, "/", pages), React.createElement("button", {
+          }, React.createElement("input", {
+            style: {
+              width: 60
+            },
+            value: page + 1,
+            onChange: function onChange(e) {
+              return changePage$$1(+e.target.value - 1);
+            }
+          }), "/", pages), React.createElement("button", {
             className: "btn btn-sm",
             onClick: function onClick() {
               return changePage$$1(page + 1, pages);
