@@ -111,10 +111,10 @@ export function insertData(table, data) {
     return { type: INSERT_DATA, table, data};
 }
 
-export function updateData(table, data) {
+export function updateData(table, data, resetPager) {
     return async (dispatch, getState) => {
          dispatch({ type: UPDATE_DATA, table, data});
-         dispatch(filtering(table))
+         dispatch(filtering(table, resetPager))
     }
 }
 

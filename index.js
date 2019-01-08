@@ -314,7 +314,7 @@
       data: data
     };
   }
-  function updateData(table, data) {
+  function updateData(table, data, resetPager) {
     return (
       /*#__PURE__*/
       function () {
@@ -330,7 +330,7 @@
                     table: table,
                     data: data
                   });
-                  dispatch(filtering(table));
+                  dispatch(filtering(table, resetPager));
 
                 case 2:
                 case "end":
@@ -1425,7 +1425,7 @@
         } else {
           //handle remounting and updating of data
           if (data !== table._items) {
-            this.props.updateData(table, data);
+            this.props.updateData(table, data, false);
           }
         }
       }
@@ -1436,7 +1436,7 @@
 
         if (data !== this.props.data) {
           var table = this.state.table;
-          props.updateData(table, data);
+          props.updateData(table, data, true);
         }
       }
     }, {

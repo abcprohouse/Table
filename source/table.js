@@ -28,7 +28,7 @@ class Table extends React.Component{
         }else{
             //handle remounting and updating of data
             if(data !== table._items){
-                this.props.updateData(table, data);
+                this.props.updateData(table, data, false);
             }
         }
     }
@@ -37,7 +37,7 @@ class Table extends React.Component{
         let {data} = props;
         if(data !== this.props.data){
             let {table} = this.state;
-            props.updateData(table, data);
+            props.updateData(table, data, true);
         }
     }
 
