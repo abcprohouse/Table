@@ -158,6 +158,7 @@
   var FILTER_CHECKBOX = 'table/FILTER_CHECKBOX';
   var SORTED = 'table/SORTED';
   var CHANGE_PAGE = 'table/CHANGE_PAGE';
+  var RESET_PAGER = 'table/RESET_PAGER';
   var initialState = {};
   var individualState = {
     page: 0,
@@ -239,9 +240,15 @@
 
       case SORTED:
         return Object.assign({}, state, {
-          items: action.data,
+          items: action.data //  page:0,
+          //  pages:Math.ceil(action.data.length/12)
+
+        });
+
+      case RESET_PAGER:
+        return Object.assign({}, state, {
           page: 0,
-          pages: Math.ceil(action.data.length / 12)
+          pages: action.pages
         });
 
       case SEARCHING:
@@ -368,7 +375,7 @@
                     table: tableKey,
                     searchText: searchText
                   });
-                  dispatch(filtering(tableKey));
+                  dispatch(filtering(tableKey, true));
 
                 case 2:
                 case "end":
@@ -399,7 +406,7 @@
                     type: CLEAR_SEARCH,
                     table: tableKey
                   });
-                  dispatch(filtering(tableKey));
+                  dispatch(filtering(tableKey, true));
 
                 case 2:
                 case "end":
@@ -481,7 +488,7 @@
                     key: key,
                     checked: checked
                   });
-                  return _context5.abrupt("return", dispatch(filtering(tableKey)));
+                  return _context5.abrupt("return", dispatch(filtering(tableKey, true)));
 
                 case 2:
                 case "end":
@@ -499,6 +506,7 @@
   }
 
   function filtering(tableKey) {
+    var resetPager = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
     return (
       /*#__PURE__*/
       function () {
@@ -533,9 +541,17 @@
                   data = data.filter(function (item) {
                     return search(item, searchText);
                   });
+
+                  if (resetPager) {
+                    dispatch({
+                      type: RESET_PAGER,
+                      pages: Math.ceil(data.length / 12)
+                    });
+                  }
+
                   return _context6.abrupt("return", dispatch(sorting(tableKey, data, sort)));
 
-                case 9:
+                case 10:
                 case "end":
                   return _context6.stop();
               }

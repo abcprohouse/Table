@@ -10,6 +10,7 @@ const CHANGE_SEARCH = 'table/CHANGE_SEARCH';
 const FILTER_CHECKBOX = 'table/FILTER_CHECKBOX';
 const SORTED = 'table/SORTED';
 const CHANGE_PAGE = 'table/CHANGE_PAGE';
+const RESET_PAGER = 'table/RESET_PAGER';
 const initialState = {};
 const individualState = {
     page:0,
@@ -63,7 +64,15 @@ function data(state, action){
         case UPDATE_INSERT_ACCESSORS:
             return Object.assign({}, state, {keys:  action.data});
         case SORTED:
-            return Object.assign({}, state, {items:action.data,  page:0, pages:Math.ceil(action.data.length/12)});
+            return Object.assign({}, state, {items:action.data,
+              //  page:0,
+              //  pages:Math.ceil(action.data.length/12)
+            });
+        case RESET_PAGER:
+            return Object.assign({}, state, {
+                  page:0,
+                  pages:action.pages
+            });
         case SEARCHING:
             return Object.assign({}, state, {items:action.data,  searchText: action.searchText});
         case CLEAR_SEARCH:
@@ -119,14 +128,14 @@ export function updateSearch(tableKey, searchFn){
 export function searching(tableKey, searchText){
     return async (dispatch, getState) =>{
         dispatch({ type: SEARCHING, table:tableKey, searchText});
-        dispatch(filtering(tableKey));
+        dispatch(filtering(tableKey, true));
     };
 }
 
 export function clearSearch(tableKey){
     return async (dispatch, getState) =>{
         dispatch({ type: CLEAR_SEARCH, table:tableKey});
-        dispatch(filtering(tableKey));
+        dispatch(filtering(tableKey, true));
     };
 }
 export function changeSort(tableKey, key, asc, sortFn){
@@ -148,12 +157,12 @@ function sorting(table, data, sort){
 export function filterCheck(tableKey, key, checked){
     return async (dispatch, getState) =>{
         dispatch({ type: FILTER_CHECKBOX, table:tableKey, key, checked});
-        return dispatch(filtering(tableKey))
+        return dispatch(filtering(tableKey, true))
     };
 }
 
 
-function filtering(tableKey){
+function filtering(tableKey, resetPager = false){
     return async (dispatch, getState) => {
         let table = getState().table;
         let state = table[tableKey];
@@ -165,6 +174,9 @@ function filtering(tableKey){
             data = data.filter((f)=>f[key.key] === true);
         }
         data = data.filter((item)=>search(item, searchText));
+        if(resetPager){
+           dispatch({type:RESET_PAGER, pages:Math.ceil(data.length/12)});
+        }
         return dispatch(sorting(tableKey, data, sort))
     }
 }
