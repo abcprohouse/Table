@@ -39,6 +39,7 @@ export default function reducer(state = initialState, action = {}) {
             return Object.assign({}, state, {[action.table]: data(state[action.table], action)});
         case UPDATE_INSERT_ACCESSORS:
             return Object.assign({}, state, {[action.table]: data(state[action.table], action)});
+        case RESET_PAGER:
         case CLEAR_SEARCH:
         case SEARCHING:
         case CHANGE_SEARCH:
@@ -175,7 +176,7 @@ function filtering(tableKey, resetPager = false){
         }
         data = data.filter((item)=>search(item, searchText));
         if(resetPager){
-           dispatch({type:RESET_PAGER, pages:Math.ceil(data.length/12)});
+           dispatch({type:RESET_PAGER, table:tableKey, pages:Math.ceil(data.length/12)});
         }
         return dispatch(sorting(tableKey, data, sort))
     }

@@ -197,6 +197,7 @@
       case UPDATE_INSERT_ACCESSORS:
         return Object.assign({}, state, _defineProperty({}, action.table, data(state[action.table], action)));
 
+      case RESET_PAGER:
       case CLEAR_SEARCH:
       case SEARCHING:
       case CHANGE_SEARCH:
@@ -545,6 +546,7 @@
                   if (resetPager) {
                     dispatch({
                       type: RESET_PAGER,
+                      table: tableKey,
                       pages: Math.ceil(data.length / 12)
                     });
                   }
