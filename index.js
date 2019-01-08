@@ -1404,6 +1404,11 @@
           if (this.props.search) {
             this.props.updateSearch(table, this.props.search);
           }
+        } else {
+          //handle remounting and updating of data
+          if (data !== table._items) {
+            this.props.updateData(table, data);
+          }
         }
       }
     }, {
